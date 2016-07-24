@@ -1,0 +1,18 @@
+{
+  "name": "hexo-converter",
+  "version": "0.0.1",
+  "description": "An automated utility to convert Jekyll blog posts to Hexo posts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/georgeedwards/hexo-converter"
+  },
+  "author": "George Edwards",
+  "license": "MIT",
+  "dependencies": {
+    "front-matter": "^2.1.0"
+  }
+}

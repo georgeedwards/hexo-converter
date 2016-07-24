@@ -1,0 +1,7 @@
+{
+  "name": "hexo-converter",
+  "dependencies": {},
+  "globalDependencies": {
+    "node-4": "registry:dt/node-4#4.0.0+20160720000508"
+  }
+}
