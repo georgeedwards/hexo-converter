@@ -50,15 +50,46 @@ function writeFile(_content, fileName) {
     var content = processBodyContent(meta, _content.body);
     fs.writeFileSync(_fileName, content);
 }
+/** _______________________________________________________________________________________________
+ *  Processed | open_tag | code_start | language_dec | code | code_end | close_tag | toBeProcessed |
+ *  _______________________________________________________________________________________________
+ *     ...    |{% nat. %}|     ```    |     lang?    | code |    ```   |{% nat. %} | rest of md    |
+ */
 function processBodyContent(fm, body) {
-    var final_content = fm;
+    var processed = fm;
     var search_index = body.search("{% nativescript %}");
     if (search_index == -1) {
-        final_content = final_content + body;
+        processed = processed + body;
     }
     else {
-        console.log(search_index);
+        //console.log(search_index);
+        var code_start_onwards = body.substr(search_index + 18); //substring of everything past the position of the search term (+18 - it's length)
+        if (code_start_onwards.search("{% endnativescript %}") < code_start_onwards.search("```")) {
+        }
+        else {
+            var language_dec_onwards = code_start_onwards.substr(code_start_onwards.substr(0, search_index).search("```") + 3); // skip past backticks
+            var language_dec_onwardsChars = language_dec_onwards.split(""); //convert string to array
+            // Look for if there is content or newline after
+            if (language_dec_onwardsChars[0] == "/n") {
+                //no language declared
+                console.log("No Langauge");
+            }
+            else {
+                var language_dec;
+                //for each string character
+                for (var i = 0; i < 15; i++ || language_dec != undefined) {
+                    if (language_dec_onwardsChars[i] == "\n") {
+                        language_dec = language_dec_onwards.substr(0, i); //set the language as everything before the new line
+                    }
+                }
+            }
+            var code = language_dec_onwards.substr(language_dec.length, language_dec_onwards.search("```") - language_dec.length);
+            console.log("Code: " + code.substr(0, 150));
+            console.log("code length?" + language_dec_onwards.search("```"));
+            var toBeProcessed = language_dec_onwards.substr(language_dec_onwards.search("{% endnativescript %}") + 21);
+            console.log("Processing: " + toBeProcessed.substr(0, 100));
+        }
         final_content = final_content + body.substr(0, search_index);
     }
-    return final_content;
+    return processed;
 }

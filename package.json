@@ -4,7 +4,7 @@
   "description": "An automated utility to convert Jekyll blog posts to Hexo posts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start karma.conf.js",
     "start": "tsc && node index.js"
   },
   "repository": {
@@ -16,5 +16,11 @@
   "dependencies": {
     "front-matter": "^2.1.0",
     "mkpath": "^1.0.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2"
   }
 }
