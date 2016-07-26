@@ -2,7 +2,6 @@
 /// <reference path="typings/index.d.ts" />
 var fs = require('fs');
 var fm = require('front-matter');
-var mkpath = require('mkpath');
 var path = 'content/';
 var files = [];
 var getFiles = function (path, files) {
@@ -39,17 +38,21 @@ function writeFile(_frontMatter, fileName) {
     var _fileName = directory + fileName.substring(fileName.indexOf("/"));
     console.log("Dir:" + directory);
     console.log("File: " + _fileName);
+    console.log("PRE");
     createDirectories(directory);
+    console.log("POST");
     var content = "---\ntitle: " + _frontMatter.attributes.title + "\ndescription: " + _frontMatter.attributes.description + "\n---";
     //console.log("Content: " + content);
     fs.writeFileSync(_fileName, content);
 }
 function createDirectories(fileName) {
+    console.log("FN: " + fileName);
     var directory = "output/" + fileName.substring(0, fileName.indexOf("/"));
+    console.log("Dir: " + directory);
     //create directory
-    mkpath(directory, function (err) {
-        if (err)
-            throw err;
-        console.log(directory + ' directory created');
-    });
+    try {
+        fs.mkdirSync(fileName);
+    }
+    catch (e) {
+    }
 }
