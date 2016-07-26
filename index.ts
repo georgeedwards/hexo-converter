@@ -18,14 +18,14 @@ var getFiles = function(path, files){
 
 getFiles(path, files);
 
-for (let file of files) {
+for (let path of files) {
 
-  fs.readFile(file, 'utf8', function (err, data) {
+  fs.readFile(path, 'utf8', function (err, data) {
     if (err) throw err
 
     var content = fm(data)
 
-    console.log(file)
+    console.log(path)
     console.log(content.attributes.title);
   })
 }
