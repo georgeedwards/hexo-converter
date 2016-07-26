@@ -4,17 +4,6 @@ var fs = require('fs');
 var fm = require('front-matter');
 var path = 'content/';
 var files = [];
-var getFiles = function (path, files) {
-    fs.readdirSync(path).forEach(function (file) {
-        var subpath = path + '/' + file;
-        if (fs.lstatSync(subpath).isDirectory()) {
-            getFiles(subpath, files);
-        }
-        else {
-            files.push(path + '/' + file);
-        }
-    });
-};
 getFiles(path, files);
 var _loop_1 = function(path_1) {
     fs.readFile(path_1, 'utf8', function (err, data) {
@@ -32,6 +21,17 @@ var _loop_1 = function(path_1) {
 for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
     var path_1 = files_1[_i];
     _loop_1(path_1);
+}
+function getFiles(path, files) {
+    fs.readdirSync(path).forEach(function (file) {
+        var subpath = path + '/' + file;
+        if (fs.lstatSync(subpath).isDirectory()) {
+            getFiles(subpath, files);
+        }
+        else {
+            files.push(path + '/' + file);
+        }
+    });
 }
 function writeFile(_frontMatter, fileName) {
     var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));

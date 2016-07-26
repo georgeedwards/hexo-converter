@@ -4,18 +4,6 @@ import * as fm from 'front-matter';
 var path = 'content/'
 var files: Array<string> = []
 
-
-var getFiles = function (path: string, files: Array<string>) {
-    fs.readdirSync(path).forEach(function (file) {
-        var subpath = path + '/' + file;
-        if (fs.lstatSync(subpath).isDirectory()) {
-            getFiles(subpath, files);
-        } else {
-            files.push(path + '/' + file);
-        }
-    });
-}
-
 getFiles(path, files);
 
 for (let path of files) {
@@ -34,19 +22,25 @@ for (let path of files) {
         writeFile(content, fileName);
     })
 }
+function getFiles (path: string, files: Array<string>) {
+    fs.readdirSync(path).forEach(function (file) {
+        var subpath = path + '/' + file;
+        if (fs.lstatSync(subpath).isDirectory()) {
+            getFiles(subpath, files);
+        } else {
+            files.push(path + '/' + file);
+        }
+    });
+}
 
-
-function writeFile(_frontMatter: frontMatter, fileName: string) {
-    var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));
-    var _fileName = directory + fileName.substring(fileName.indexOf("/"));
-    console.log("Dir:" + directory);
-    console.log("File: " + _fileName);
-    console.log("PRE");
-    createDirectories(directory);
-    console.log("POST");
-    var content = "---\ntitle: " + _frontMatter.attributes.title + "\ndescription: " + _frontMatter.attributes.description + "\n---";
-    //console.log("Content: " + content);
-    fs.writeFileSync(_fileName, content)
+function createDirectories(fileName: string): void {
+    var directory = "output/" + fileName.substring(0, fileName.indexOf("/"));
+    //create directory
+    try {
+        fs.mkdirSync(fileName);
+    } catch (e) {
+        //file probably already exist 
+    }
 }
 
 interface frontMatter {
@@ -60,14 +54,12 @@ interface fmAttributes {
     description: string;
 }
 
-function createDirectories(fileName: string): void {
-    console.log("FN: " + fileName);
-    var directory = "output/" + fileName.substring(0, fileName.indexOf("/"));
-    console.log("Dir: " + directory);
-    //create directory
-    try {
-        fs.mkdirSync(fileName);
-    } catch (e) {
-        //file probably already exist 
-    }
+function writeFile(_frontMatter: frontMatter, fileName: string) {
+    var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));
+    var _fileName = directory + fileName.substring(fileName.indexOf("/"));
+    
+    createDirectories(directory);
+    var content = "---\ntitle: " + _frontMatter.attributes.title + "\ndescription: " + _frontMatter.attributes.description + "\n---";
+
+    fs.writeFileSync(_fileName, content)
 }
