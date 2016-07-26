@@ -14,6 +14,7 @@
   "author": "George Edwards",
   "license": "MIT",
   "dependencies": {
-    "front-matter": "^2.1.0"
+    "front-matter": "^2.1.0",
+    "mkpath": "^1.0.0"
   }
 }
