@@ -1,7 +1,6 @@
 /// <reference path="typings/index.d.ts" />
 import * as fs from 'fs';
 import * as fm from 'front-matter';
-import * as mkpath from 'mkpath';
 var path = 'content/'
 var files: Array<string> = []
 
