@@ -1,6 +1,6 @@
 /// <reference path="typings/index.d.ts" />
 import * as fs from 'fs';
-import * as fm from 'front-matter';
+var fm = require ('front-matter');
 var path = 'content/'
 var files: Array<string> = []
 
@@ -41,17 +41,6 @@ function createDirectories(fileName: string): void {
     } catch (e) {
         //file probably already exist 
     }
-}
-
-interface frontMatter {
-    attributes: fmAttributes;
-    body: string;
-    frontmatter: string;
-}
-
-interface fmAttributes {
-    title: string;
-    description: string;
 }
 
 function writeFile(_content: frontMatter, fileName: string) {

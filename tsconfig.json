@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
         "noEmitOnError": true,
-        "target": "es6"
+        "noEmitHelpers": true,
+        "noLib": false,
+        "sourceMap": false,
+        "target": "es5",
+        "module": "commonjs",
+        "removeComments": false
     },
     "files": [
-        "index.ts"
+        "index.ts",
+        "mdProcessing.ts"
     ]
 }

@@ -57,7 +57,8 @@ function writeFile(_content, fileName) {
  */
 function processBodyContent(fm, body) {
     var processed = fm;
-    var search_index = body.search("{% nativescript %}");
+    var open_tag = "{% nativescript %}";
+    var search_index = body.search(open_tag);
     if (search_index == -1) {
         processed = processed + body;
     }
@@ -65,6 +66,9 @@ function processBodyContent(fm, body) {
         //console.log(search_index);
         var code_start_onwards = body.substr(search_index + 18); //substring of everything past the position of the search term (+18 - it's length)
         if (code_start_onwards.search("{% endnativescript %}") < code_start_onwards.search("```")) {
+            //not code block in tag
+            //console.log("No Block");
+            processed = processed + body;
         }
         else {
             var language_dec_onwards = code_start_onwards.substr(code_start_onwards.substr(0, search_index).search("```") + 3); // skip past backticks
@@ -84,12 +88,9 @@ function processBodyContent(fm, body) {
                 }
             }
             var code = language_dec_onwards.substr(language_dec.length, language_dec_onwards.search("```") - language_dec.length);
-            console.log("Code: " + code.substr(0, 150));
-            console.log("code length?" + language_dec_onwards.search("```"));
             var toBeProcessed = language_dec_onwards.substr(language_dec_onwards.search("{% endnativescript %}") + 21);
-            console.log("Processing: " + toBeProcessed.substr(0, 100));
+            processed = processed + open_tag + "{% codeblock lang:" + language_dec + " %}" + code + "{% endcodeblock %}" + "{% endnativescript %}" + toBeProcessed;
         }
-        final_content = final_content + body.substr(0, search_index);
     }
     return processed;
 }
