@@ -54,12 +54,24 @@ interface fmAttributes {
     description: string;
 }
 
-function writeFile(_frontMatter: frontMatter, fileName: string) {
+function writeFile(_content: frontMatter, fileName: string ) {
     var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));
     var _fileName = directory + fileName.substring(fileName.indexOf("/"));
     
     createDirectories(directory);
-    var content = "---\ntitle: " + _frontMatter.attributes.title + "\ndescription: " + _frontMatter.attributes.description + "\n---";
-
+    var meta = "---\ntitle: " + _content.attributes.title + "\ndescription: " + _content.attributes.description + "\n---\n";
+    var content = processBodyContent(meta, _content.body);
     fs.writeFileSync(_fileName, content)
+}
+
+function processBodyContent(fm: string, body: string): string {
+    var final_content = fm;
+    var search_index: number = body.search("{% nativescript %}");
+    if (search_index == -1){
+        final_content = final_content + body;
+    } else {
+        console.log(search_index);
+        final_content = final_content + body.substr(0, search_index);
+    }
+    return final_content;
 }

@@ -33,26 +33,32 @@ function getFiles(path, files) {
         }
     });
 }
-function writeFile(_frontMatter, fileName) {
-    var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));
-    var _fileName = directory + fileName.substring(fileName.indexOf("/"));
-    console.log("Dir:" + directory);
-    console.log("File: " + _fileName);
-    console.log("PRE");
-    createDirectories(directory);
-    console.log("POST");
-    var content = "---\ntitle: " + _frontMatter.attributes.title + "\ndescription: " + _frontMatter.attributes.description + "\n---";
-    //console.log("Content: " + content);
-    fs.writeFileSync(_fileName, content);
-}
 function createDirectories(fileName) {
-    console.log("FN: " + fileName);
     var directory = "output/" + fileName.substring(0, fileName.indexOf("/"));
-    console.log("Dir: " + directory);
     //create directory
     try {
         fs.mkdirSync(fileName);
     }
     catch (e) {
     }
+}
+function writeFile(_content, fileName) {
+    var directory = "./output/" + fileName.substring(0, fileName.indexOf("/"));
+    var _fileName = directory + fileName.substring(fileName.indexOf("/"));
+    createDirectories(directory);
+    var meta = "---\ntitle: " + _content.attributes.title + "\ndescription: " + _content.attributes.description + "\n---\n";
+    var content = processBodyContent(meta, _content.body);
+    fs.writeFileSync(_fileName, content);
+}
+function processBodyContent(fm, body) {
+    var final_content = fm;
+    var search_index = body.search("{% nativescript %}");
+    if (search_index == -1) {
+        final_content = final_content + body;
+    }
+    else {
+        console.log(search_index);
+        final_content = final_content + body.substr(0, search_index);
+    }
+    return final_content;
 }
