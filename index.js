@@ -1,6 +1,7 @@
 "use strict";
 /// <reference path="typings/index.d.ts" />
 var fs = require('fs');
+var mdProcessing_1 = require('./mdProcessing');
 var fm = require('front-matter');
 var path = 'content/';
 var files = [];
@@ -58,39 +59,13 @@ function writeFile(_content, fileName) {
 function processBodyContent(fm, body) {
     var processed = fm;
     var open_tag = "{% nativescript %}";
-    var search_index = body.search(open_tag);
-    if (search_index == -1) {
+    if (mdProcessing_1.containsIssue(body, open_tag)) {
+        // Tag doesn't exist
         processed = processed + body;
     }
     else {
-        //console.log(search_index);
-        var code_start_onwards = body.substr(search_index + 18); //substring of everything past the position of the search term (+18 - it's length)
-        if (code_start_onwards.search("{% endnativescript %}") < code_start_onwards.search("```")) {
-            //not code block in tag
-            //console.log("No Block");
-            processed = processed + body;
-        }
-        else {
-            var language_dec_onwards = code_start_onwards.substr(code_start_onwards.substr(0, search_index).search("```") + 3); // skip past backticks
-            var language_dec_onwardsChars = language_dec_onwards.split(""); //convert string to array
-            // Look for if there is content or newline after
-            if (language_dec_onwardsChars[0] == "/n") {
-                //no language declared
-                console.log("No Langauge");
-            }
-            else {
-                var language_dec;
-                //for each string character
-                for (var i = 0; i < 15; i++ || language_dec != undefined) {
-                    if (language_dec_onwardsChars[i] == "\n") {
-                        language_dec = language_dec_onwards.substr(0, i); //set the language as everything before the new line
-                    }
-                }
-            }
-            var code = language_dec_onwards.substr(language_dec.length, language_dec_onwards.search("```") - language_dec.length);
-            var toBeProcessed = language_dec_onwards.substr(language_dec_onwards.search("{% endnativescript %}") + 21);
-            processed = processed + open_tag + "{% codeblock lang:" + language_dec + " %}" + code + "{% endcodeblock %}" + "{% endnativescript %}" + toBeProcessed;
-        }
+        //tag does exist
+        processed = mdProcessing_1.processTag(body, open_tag);
     }
     return processed;
 }

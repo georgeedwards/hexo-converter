@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "noEmitOnError": true,
-        "noEmitHelpers": true,
+        "noEmitOnError": false,
+        "noEmitHelpers": false,
         "noLib": false,
         "sourceMap": false,
         "target": "es5",
