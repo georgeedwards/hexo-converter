@@ -5,3 +5,5 @@ npm-debug.log
 content/
 output/
 lib/
+.coverdata/
+.coverrun

@@ -9,11 +9,13 @@ export function processTag(body: string, open_tag: string) {
     var search_index: number = body.search(open_tag);
     //substring of everything past the position of the search term (+18 - it's length)
     var code_start_onwards = body.substr(search_index + 18);
+
     // skip past backticks
     var language_dec_onwards = code_start_onwards.substr(code_start_onwards.substr(0, search_index).search('```') + 3);
     var language_dec = getLanguage(language_dec_onwards);
     var code = language_dec_onwards.substr(language_dec.length, language_dec_onwards.search('```') - language_dec.length);
     var toBeProcessed = language_dec_onwards.substr(language_dec_onwards.search('{% endnativescript %}') + 21);
+
     //reconstruct document, first open code block, then fill in code and rest of content
     processed = processed + open_tag + '{% codeblock lang:' + language_dec + ' %}';
     processed = processed + code + '{% endcodeblock %}' + '{% endnativescript %}' + toBeProcessed;
@@ -39,6 +41,7 @@ function getLanguage(language_dec_onwards: string) {
     if (language_dec_onwardsChars[0] === '/n') {
         //no language declared
         console.log('No Langauge');
+        return '';
     } else {
         var language_dec: string;
         //for each string character

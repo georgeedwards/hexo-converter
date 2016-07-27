@@ -3,8 +3,9 @@ import * as fs from 'fs';
 import {processTag, containsIssue} from './mdProcessing';
 import {getFiles, writeFile} from './fsUtils';
 var fm = require('front-matter');
-var path = '../content/';
-var files: Array<string> = getFiles(path);
+var path = './content/';
+var files: Array<string> = [];
+files = getFiles(path, files);
 
 for (let path of files) {
 

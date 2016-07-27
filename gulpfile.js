@@ -10,6 +10,7 @@ var gulpSequence = require('gulp-sequence');
 var del = require('del');
 var dtsGenerator = require('dts-generator');
 require('dotbin');
+var cover = require('gulp-coverage');
 
 var tsFilesGlob = (function (c) {
   return c.filesGlob || c.files || '**/*.ts';
@@ -70,7 +71,19 @@ gulp.task('build', 'Compiles all TypeScript source files and updates module refe
 
 gulp.task('test', 'Runs the Jasmine test specs', ['build'], function () {
   return gulp.src('lib/test/*.js')
-    .pipe(jasmine());
+    .pipe(jasmine())
+});
+
+gulp.task('jasmine', function () {
+  return gulp.src('lib/test/*.js')
+    .pipe(cover.instrument({
+      pattern: ['lib/src/*.js'],
+      debugDirectory: 'debug'
+    }))
+    .pipe(jasmine())
+    .pipe(cover.gather())
+    .pipe(cover.format())
+    .pipe(gulp.dest('reports'));
 });
 
 gulp.task('watch', 'Watches ts source files and runs build on change', function () {

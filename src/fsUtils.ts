@@ -2,12 +2,11 @@
 var fm = require('front-matter');
 import * as fs from 'fs';
 
-export function getFiles(path: string): Array<string> {
-    var files: Array<string> = [];
+export function getFiles(path: string, files: Array<string>): Array<string> {
     fs.readdirSync(path).forEach(function (file) {
         var subpath = path + '/' + file;
         if (fs.lstatSync(subpath).isDirectory()) {
-            getFiles(subpath);
+            getFiles(subpath, files);
         } else {
             files.push(path + '/' + file);
         }
@@ -34,4 +33,12 @@ export function writeFile(content: string, fileName: string) {
     createDirectories(directory); //ensure the directory exists
 
     fs.writeFileSync(_fileName, content);
+}
+
+export function emptyOutput() {
+    var _files: Array<string> = [];
+    var files = getFiles('./output', _files);
+    for (let path of files) {
+        fs.unlinkSync(path);
+    }
 }
