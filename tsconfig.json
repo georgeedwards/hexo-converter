@@ -1,15 +1,33 @@
 {
-    "compilerOptions": {
-        "noEmitOnError": false,
-        "noEmitHelpers": false,
-        "noLib": false,
-        "sourceMap": false,
-        "target": "es5",
-        "module": "commonjs",
-        "removeComments": false
-    },
-    "files": [
-        "index.ts",
-        "mdProcessing.ts"
-    ]
+  "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./lib",
+    "preserveConstEnums": true,
+    "removeComments": true
+  },
+  "filesGlob": [
+    "typings/main.d.ts",
+    "src/**/*.ts",
+    "src/*.ts",
+    "test/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings"
+  ],
+  "files": [
+    "src\\front-matter.d.ts",
+    "src\\fsUtils.ts",
+    "src\\greeter.ts",
+    "src\\index.ts",
+    "src\\mdProcessing.ts",
+    "test\\fileSystemSpec.ts",
+    "test\\greeter-spec.ts",
+    "test\\processingSpec.ts",
+    "test\\test_content\\no_tags.ts"
+  ]
 }

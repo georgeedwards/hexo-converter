@@ -1,4 +1,7 @@
-node_modules
-typings
-content
-output
+coverage/
+node_modules/
+typings/
+npm-debug.log
+content/
+output/
+lib/

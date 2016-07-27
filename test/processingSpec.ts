@@ -1,3 +1,6 @@
+///<reference path='../typings/index.d.ts'/>
+import {containsIssue} from '../src/mdProcessing';
+
 describe('NativeScript Markdown Migrator', function () {
 
     it('should pass non tagged file clean through', function () {
@@ -24,4 +27,4 @@ describe('NativeScript Markdown Migrator', function () {
         expect(true).toBe(true);
     });
 
-})
+});

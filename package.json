@@ -4,8 +4,8 @@
   "description": "An automated utility to convert Jekyll blog posts to Hexo posts",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js",
-    "start": "tsc && node index.js"
+    "test": "gulp test",
+    "start": "gulp build && node lib/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,22 @@
     "mkpath": "^1.0.0"
   },
   "devDependencies": {
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.1.2",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2"
-  }
+    "del": "^2.2.1",
+    "dotbin": "^1.0",
+    "dts-generator": "^1.7",
+    "gulp": "^3.9.0",
+    "gulp-help": "^1.6.0",
+    "gulp-inject": "^4.1.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-sequence": "^0.4.5",
+    "gulp-tsconfig-files": "^0.4.0",
+    "gulp-tslint": "^6.0.2",
+    "jasmine": "^2.3.1",
+    "tslint": "^3.5",
+    "typescript": "^1.8"
+  },
+  "engines": {
+    "node": ">=2.0.0"
+  },
+  "typings": "./lib/test.d.ts"
 }
