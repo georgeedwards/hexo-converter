@@ -19,6 +19,7 @@ for (let path of files) {
 
         var substring = '/content';
         var fileName = path.substring(9); //extract the file name from root ./content
+        console.log('FN: ' + fileName);
         var meta = '---\ntitle: ' + orig_cont.attributes.title + '\ndescription: ' + orig_cont.attributes.description + '\n---\n';
         var processed_content = processBodyContent(meta, orig_cont.body);
         writeFile(processed_content, fileName);

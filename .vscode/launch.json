@@ -19,7 +19,7 @@
                 "NODE_ENV": "development"
             },
             "externalConsole": false,
-            "outDir": null
+            "outDir": "${workspaceRoot}/lib/src/"
         },
         {
             "name": "Attach",

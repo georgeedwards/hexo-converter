@@ -23,12 +23,10 @@
   "files": [
     "src\\front-matter.d.ts",
     "src\\fsUtils.ts",
-    "src\\greeter.ts",
     "src\\index.ts",
     "src\\mdProcessing.ts",
     "test\\fileSystemSpec.ts",
-    "test\\greeter-spec.ts",
     "test\\processingSpec.ts",
-    "test\\test_content\\no_tags.ts"
+    "test\\test_content\\test-strings.ts"
   ]
 }

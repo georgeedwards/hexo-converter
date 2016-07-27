@@ -5,6 +5,7 @@ import {getFiles, writeFile, emptyOutput} from '../src/fsUtils';
 describe('File System', function () {
 
     it('should read file path', function () {
+        emptyOutput();
         var _files: Array<string> = [];
         var files = getFiles('./test/test_content', _files);
         var fileShort: Array<string> = [];
@@ -12,14 +13,13 @@ describe('File System', function () {
             file.substr(file.length - 24);
             console.log(file);
         }
-        expect(getFiles('./test/test_content', _files)).toContain('./test/test_content/no_tags.ts');
+        expect(getFiles('./test/test_content', _files)).toContain('./test/test_content/test-strings.ts');
     });
 
     it('should write file to output dir', function () {
         emptyOutput();
         writeFile('test123', 'content/test.md');
         var _files: Array<string> = [];
-        console.log('Files: ' + getFiles('./output', _files));
         expect(getFiles('./output', _files)).toContain('./output/content/test.md');
         emptyOutput();
     });

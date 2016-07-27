@@ -30,7 +30,7 @@ export function containsIssue(body: string, open_tag: string): boolean {
         var code_start_onwards = body.substr(search_index + open_tag.length);
         var tag_contains_code = code_start_onwards.search('{% endnativescript %}') < code_start_onwards.search('```');
         if (tag_contains_code) { return true; } //if the tag contains code, return the function to say there's an issue
-        body = body.substring(search_index); // look at code past the tag we've just checked
+        body = body.substring(search_index + open_tag.length); // look at code past the tag we've just checked
     }
     return false; //if there aren't any specialist tage, then return no errors
 }

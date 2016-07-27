@@ -1,13 +1,19 @@
 ///<reference path='../typings/index.d.ts'/>
 import {containsIssue} from '../src/mdProcessing';
+import {writeFile} from '../src/fsUtils';
+import {no_tag_string, string_with_tag} from './test_content/test-strings';
 
 describe('NativeScript Markdown Migrator', function () {
 
-    it('should pass non tagged file clean through', function () {
-        expect(true).toBe(true);
+    it('should not throw issue on clean file', function () {
+        expect(containsIssue(no_tag_string, '{% nativescript %}')).toBe(false);
     });
 
-   it('should pass tags without code clean through', function () {
+    it('should throw issue on file with tag', function () {
+        expect(containsIssue(string_with_tag, '{% nativescript %}')).toBe(true);
+    });
+
+    it('should pass tags without code clean through', function () {
         expect(true).toBe(true);
     });
 
