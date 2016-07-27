@@ -10,7 +10,9 @@ var gulpSequence = require('gulp-sequence');
 var del = require('del');
 var dtsGenerator = require('dts-generator');
 require('dotbin');
-var cover = require('gulp-coverage');
+
+var istanbul = require('gulp-istanbul');
+var remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
 var tsFilesGlob = (function (c) {
   return c.filesGlob || c.files || '**/*.ts';
@@ -69,23 +71,33 @@ gulp.task('build', 'Compiles all TypeScript source files and updates module refe
   gulpSequence('tslint', ['update-tsconfig', 'gen-def'], '_build')(callback);
 });
 
-gulp.task('test', 'Runs the Jasmine test specs', ['build'], function () {
-  return gulp.src('lib/test/*.js')
-    .pipe(jasmine())
-});
-
-gulp.task('jasmine', function () {
-  return gulp.src('lib/test/*.js')
-    .pipe(cover.instrument({
-      pattern: ['lib/src/*.js'],
-      debugDirectory: 'debug'
-    }))
-    .pipe(jasmine())
-    .pipe(cover.gather())
-    .pipe(cover.format())
-    .pipe(gulp.dest('reports'));
+gulp.task('test', ['test:instrument'], function() {
+  return gulp.src('./lib/test/*.js') //take our transpiled test source
+    .pipe(jasmine()) //runs tests
+    .pipe(istanbul.writeReports({
+      reporters: ['json', 'html'] //this yields a basic non-sourcemapped coverage.json file
+    })).on('end', remapCoverageFiles); //perform a remap
 });
 
 gulp.task('watch', 'Watches ts source files and runs build on change', function () {
   gulp.watch('src/**/*.ts', ['build']);
 });
+
+gulp.task('test:instrument', ['build'], function() {
+    return gulp.src('./lib/src/*.js')
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire()); //this forces any call to 'require' to return our instrumented files
+});
+
+//using remap-istanbul we can point our coverage data back to the original ts files
+function remapCoverageFiles() {
+  return gulp.src('./coverage/coverage-final.json')
+    .pipe(remapIstanbul({
+      basePath: './lib/src',
+      reports: {
+        'html': './coverage',
+        'text-summary': null,
+        'lcovonly': './coverage/lcov.info'
+      }
+    }));
+}

@@ -14,8 +14,7 @@
   "author": "George Edwards",
   "license": "MIT",
   "dependencies": {
-    "front-matter": "^2.1.0",
-    "mkpath": "^1.0.0"
+    "front-matter": "^2.1.0"
   },
   "devDependencies": {
     "del": "^2.2.1",
@@ -25,11 +24,13 @@
     "gulp-coverage": "^0.3.38",
     "gulp-help": "^1.6.0",
     "gulp-inject": "^4.1.0",
+    "gulp-istanbul": "^1.0.0",
     "gulp-jasmine": "^2.0.1",
     "gulp-sequence": "^0.4.5",
     "gulp-tsconfig-files": "^0.4.0",
     "gulp-tslint": "^6.0.2",
     "jasmine": "^2.3.1",
+    "remap-istanbul": "^0.6.4",
     "tslint": "^3.5",
     "typescript": "^1.8"
   },
