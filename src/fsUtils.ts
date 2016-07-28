@@ -26,9 +26,9 @@ function createDirectories(fileName: string): void {
 
 export function writeFile(content: string, fileName: string) {
     //extract the destination
-    var directory = './output/' + fileName.substring(0, fileName.indexOf('/'));
+    var directory = './output/' + fileName.substring(0, fileName.substring(2).indexOf('/') + 2);
     //add the file name to the path
-    var _fileName = directory + fileName.substring(fileName.indexOf('/'));
+    var _fileName = directory + fileName.substring(fileName.substring(2).indexOf('/') + 2);
 
     createDirectories(directory); //ensure the directory exists
 

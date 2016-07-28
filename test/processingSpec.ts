@@ -24,15 +24,15 @@ describe('NativeScript Markdown Migrator', function () {
     // Tag Code Processing
     it('should pass tags without code clean through', function () {
         var path = './test/test_content/without_code_blocks.md';
-        fs.readFile(path, 'utf8', function (err, data) {
-            if (err) { throw err; }
-            console.log('found file');
-            var orig_cont = fm(data);
-            var meta = '---\ntitle: ' + orig_cont.attributes.title + '\ndescription: ' + orig_cont.attributes.description + '\n---\n';
-            var processed_content = processBodyContent(meta, orig_cont.body);
-            expect(processed_content).toEqual(data);
-        });
+        var data = fs.readFileSync(path, 'utf8');
+
+        var orig_cont = fm(data);
+        var meta = '---\ntitle: ' + orig_cont.attributes.title + '\ndescription: ' + orig_cont.attributes.description + '\n---\n';
+        var processed_content = processBodyContent(meta, orig_cont.body);
+        expect(processed_content).toEqual(data);
+        //expect(true).toBe(true);
     });
+
 
     it('should convert nested code to codeblock tags', function () {
         expect(true).toBe(true);

@@ -36,11 +36,11 @@ export function processBodyContent(fm: string, body: string): string {
     var open_tag = '{% nativescript %}';
 
     if (containsIssue(body, open_tag)) {
-        // Tag doesn't exist
-        processed = processed + body;
-    } else {
-        //tag does exist
+        // Tag does exist
         processed = processTag(body, open_tag);
+    } else {
+        //tag doesn't exist
+        processed = processed + body;
     }
     return processed;
 }
