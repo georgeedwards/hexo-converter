@@ -25,6 +25,10 @@ for (let path of files) {
     });
 }
 
+var target_tags: Array<Array<string>> = [
+    ['{% nativescript %}', '{% endnativescript %}'],
+    ['{% angular %}', '{% endangular %}']
+];
 
 /** _______________________________________________________________________________________________
  *  Processed | open_tag | code_start | language_dec | code | code_end | close_tag | toBeProcessed |
@@ -33,14 +37,19 @@ for (let path of files) {
  */
 export function processBodyContent(fm: string, body: string): string {
     var processed = fm;
-    var open_tag = '{% nativescript %}';
+    //for (let tag of target_tags) {
+        var open_tag = target_tags[0][0];
+        var end_tag = target_tags[0][1];
 
-    if (containsIssue(body, open_tag)) {
-        // Tag does exist
-        processed = processTag(body, open_tag);
-    } else {
-        //tag doesn't exist
-        processed = processed + body;
-    }
+        var issue = containsIssue(body, open_tag, end_tag);
+        if (issue) {
+            // Tag does exist with code
+            processed = processed + processTag(body, open_tag, end_tag);
+        } else {
+            //tag and code combination doesn't exist
+            processed = processed + body;
+        }
+        body = processed;
+   // }
     return processed;
 }
