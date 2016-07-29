@@ -36,7 +36,7 @@ describe('NativeScript Markdown Migrator', function () {
         expect(true).toBe(true);
     });
 
-
+//not doing ng tags or second code blocks in tag
 
     it('should convert nested code to codeblock tags', function () {
         var path = './test/test_content/with-code-block.md';
