@@ -5,7 +5,7 @@ description: How to work with geographical location data in NativeScript.
 
 # Location
 
-> **IMPORTANT:** Starting with NativeScript 1.5.0, the built-in Location module is deprecated. To implement geolocation in your apps, use the `nativescript-geolocation` plugin, available via npm. This plugin provides an API similar to the [WC3 Geolocation API](http://dev.w3.org/geo/api/spec-source.html). 
+> **IMPORTANT:** Starting with NativeScript 1.5.0, the built-in Location module is deprecated. To implement geolocation in your apps, use the `nativescript-geolocation` plugin, available via npm. This plugin provides an API similar to the [WC3 Geolocation API](http://dev.w3.org/geo/api/spec-source.html).
 
 The most important difference between the deprecated module and the new plugin is that location monitoring via the plugin returns an `id` which you can use to stop location monitoring. The `nativescript-geolocation` plugin also uses an accuracy criteria approach to deliver geolocation. This means that getting a location is powered by the most accurate location provider that is available. For example, if GPS signal is available and the GPS provider is enabled, the plugin uses GPS; if GPS is not connected, the device falls back to other available providers such as Wi-Fi networks or cell towers).
 
@@ -21,9 +21,11 @@ tns plugin add nativescript-geolocation
 
 To import the module in your code use:
 {% nativescript %}
+
 {% codeblock JavaScript lang:JavaScript %}
 var geolocation = require("nativescript-geolocation");
 {% endcodeblock %}
+
 {% endnativescript %}
 ```TypeScript
 import geolocation = require("nativescript-geolocation");
@@ -39,17 +41,19 @@ NativeScript has an universal way to check if location services are turned on - 
 
 ## Requesting Permissions to Use Location Services
 
-By default, the `nativescript-geolocation` plugin adds the required permissions in `AndroidManiest.xml` for Android and `Info.plist` for iOS. For iOS, the plugin adds two dummy string values which serve as message when the platform asks for permission to use location services. You can edit this message later. 
+By default, the `nativescript-geolocation` plugin adds the required permissions in `AndroidManiest.xml` for Android and `Info.plist` for iOS. For iOS, the plugin adds two dummy string values which serve as message when the platform asks for permission to use location services. You can edit this message later.
 
 After you install the plugin, you can request to use location services in the app with the following code:
 {% nativescript %}
+
 {% codeblock XML lang:XML %}
-<Page> 
+<Page>
     <StackLayout>
         <Button text="enable Location" tap="enableLocationTap"/>
     </StackLayout>
 </Page>
 {% endcodeblock %}
+
 {% codeblock JavaScript lang:JavaScript %}
 function enableLocationTap(args) {
     if (!geolocation.isEnabled()) {
@@ -60,13 +64,16 @@ exports.enableLocationTap = enableLocationTap;
 {% endcodeblock %}
 {% endnativescript %}
 {% angular %}
+
 {% codeblock XML lang:XML %}
 <StackLayout>
     <Button text="enable Location" (tap)="enableLocationTap()"></Button>
 </StackLayout>
-{% endcodeblock %}{% endangular %}
+{% endcodeblock %}
+
+{% endangular %}
 ```TypeScript
-{% nativescript %}export function {% endnativescript %}public {% angular %}{% endangular %}enableLocationTap() { 
+{% nativescript %}export function {% endnativescript %}public {% angular %}{% endangular %}enableLocationTap() {
     if (!geolocation.isEnabled()) {
         geolocation.enableLocationRequest();
     }
@@ -83,4 +90,4 @@ You can get location with `getCurrentLocation` or with `watchLocation`. Using `d
 
 ### `getCurrentLocation`
 
-This method gets a single location. It accepts the `location options` parameter. 
+This method gets a single location. It accepts the `location options` parameter.

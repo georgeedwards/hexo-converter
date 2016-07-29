@@ -24,7 +24,7 @@ export function getLanguage(language_dec_onwards: string) {
     // Look for if there is content or newline after
     if (language_dec_onwardsChars[0] === '\n') {
         //no language declared
-        console.log('No Langauge');
+
         return '';
     } else {
         var language_dec: string;

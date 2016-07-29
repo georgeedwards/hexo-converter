@@ -41,7 +41,7 @@ export function processBodyContent(fm: string, body: string): string {
     for (let tag of target_tags) {
         var open_tag = tag[0];
         var end_tag = tag[1];
-        console.log(tag[0], tag[1]);
+
         var issue = containsIssue(body, open_tag, end_tag);
         if (issue) {
             // Tag does exist with code
