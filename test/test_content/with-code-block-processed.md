@@ -20,9 +20,11 @@ tns plugin add nativescript-geolocation
 ```
 
 To import the module in your code use:
-{% nativescript %}{% codeblock JavaScript lang:JavaScript %}
+{% nativescript %}
+{% codeblock JavaScript lang:JavaScript %}
 var geolocation = require("nativescript-geolocation");
-{% endcodeblock %}{% endnativescript %}
+{% endcodeblock %}
+{% endnativescript %}
 ```TypeScript
 import geolocation = require("nativescript-geolocation");
 ```
@@ -40,20 +42,25 @@ NativeScript has an universal way to check if location services are turned on - 
 By default, the `nativescript-geolocation` plugin adds the required permissions in `AndroidManiest.xml` for Android and `Info.plist` for iOS. For iOS, the plugin adds two dummy string values which serve as message when the platform asks for permission to use location services. You can edit this message later. 
 
 After you install the plugin, you can request to use location services in the app with the following code:
-{% nativescript %}{% codeblock XML lang:XML %}
+{% nativescript %}
+{% codeblock XML lang:XML %}
 <Page> 
     <StackLayout>
         <Button text="enable Location" tap="enableLocationTap"/>
     </StackLayout>
 </Page>
-{% endcodeblock %}{% codeblock JavaScript lang:JavaScript %}
+{% endcodeblock %}
+{% codeblock JavaScript lang:JavaScript %}
 function enableLocationTap(args) {
     if (!geolocation.isEnabled()) {
         geolocation.enableLocationRequest();
     }
 }
-exports.enableLocationTap = enableLocationTap;{% endcodeblock %}{% endnativescript %}
-{% angular %}{% codeblock XML lang:XML %}
+exports.enableLocationTap = enableLocationTap;
+{% endcodeblock %}
+{% endnativescript %}
+{% angular %}
+{% codeblock XML lang:XML %}
 <StackLayout>
     <Button text="enable Location" (tap)="enableLocationTap()"></Button>
 </StackLayout>
